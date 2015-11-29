@@ -40,7 +40,6 @@ function onLoginBtn()
   var email = $("#login_email").val();
   var password = $("#login_password").val();
   var MC = monaca.cloud;
-  console.log("login attempt")
   MC.User.login(email, password)
     .done(function()
     {
@@ -77,10 +76,12 @@ Calendar Heatmap Source: https://github.com/wa0x6e/cal-heatmap
 */
 
 var cal;
-function initializeCal(){
+var patientData;
+function initializeCal(patientData){
     cal = new CalHeatMap();
     cal.init({
-        data: "data/data.json",
+//        data: "data/data.json",
+        data: patientData,
         // start: new Date(1990, 12),
         domain: "week",
         domainLabelFormat: "",
@@ -121,12 +122,38 @@ $(window).on("orientationchange",
     function() {
         // destroy the old calendar element first
         cal.destroy();
-        initializeCal();
+        getPatientData();
     }
 )
 
 /*
 End of Calendar Heat Map
+*/
+
+/*
+Data related functions
+*/
+
+function getPatientData(){
+    // interface with the database callaback to return data
+    var Patient = MC.Collection("Patient")
+    Patient.find('user == "test@gmail.com"')
+    .done(function(result)
+    {
+       console.log('Total items found: ' + result.items);
+       console.log('The body of the first item: ' + result.items[0]);
+       var patientData = result.items[0].data
+       initializeCal(patientData)
+    })
+    .fail(function(err)
+    {
+       console.log("Err#" + err.code +": " + err.message);
+    });
+}
+
+
+/*
+End of Data related function
 */
 
 
@@ -135,7 +162,7 @@ initializeScript();
 ons.ready(function() {
   myNavigator.on('postpush', function(e) {
     initializeScript();
-    initializeCal();
+    getPatientData();
     console.log("test2")
   });
 });
