@@ -1,0 +1,25 @@
+<ons-page>  
+    <div>
+        <ons-toolbar>
+        </ons-toolbar>
+        
+        <div id="cal-heatmap"></div>
+        <!--General user info-->
+        <div class="user-info">
+            <p class="name"><b>Udo Sonin</b></p>
+            <p class="age">8 yrs old</p>
+            <p class="brace-off"><b style="color: black">1 day</b> without brace</p>
+        </div>
+        <!--Adjust time to tighten-->
+        <!--This should probably be replaced with something better-->
+        <ul class="list">
+            <li class="list__header">Strap Activation Time</li>
+            <li class="list__item" style="text-align: center;">
+              <div style="float: left"><i class="fa fa-moon-o fa-fw" style="opacity: 0.3"></i></div>
+              <div style="float: right"><i class="fa fa-moon-o fa-fw"></i></div>
+              <input type="range" value="12" class="range" style="margin-top: 6px; width: 90%;">
+            </li>
+        </ul>
+        <ons-button id="logout-btn" modifier="large--cta" onclick="myNavigator.replacePage('login.html', { animation : 'slide' })">Logout</ons-button>
+    </div>
+</ons-page>
