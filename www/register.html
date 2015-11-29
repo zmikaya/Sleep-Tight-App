@@ -5,11 +5,11 @@
   </ons-toolbar>
   
   <div class="login-form">
-    <input type="email" class="text-input--underbar" placeholder="Email" value="">
-    <input type="password" class="text-input--underbar" placeholder="Password" value="">
-    <input type="text" class="text-input--underbar" placeholder="Clinician ID" value="">
+    <input type="email" id="reg_email" class="text-input--underbar" placeholder="Email" value="">
+    <input type="password" id="reg_password" class="text-input--underbar" placeholder="Password" value="">
+    <input type="text" id="reg_clinician_id" class="text-input--underbar" placeholder="Clinician ID" value="">
     <br><br>
-    <ons-button modifier="large" class="login-button" onclick="myNavigator.replacePage('main.html', { animation : 'slide' })">
+    <ons-button id="RegisterBtn" modifier="large" class="login-button">
         Register
     </ons-button>
   </div>

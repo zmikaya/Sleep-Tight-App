@@ -3,10 +3,6 @@ The calendar heatmap is initialized with the desired settings.
 Calendar Heatmap Source: https://github.com/wa0x6e/cal-heatmap
 */
 
-/*
-The calendar heatmap is initialized with the desired settings.
-Calendar Heatmap Source: https://github.com/wa0x6e/cal-heatmap
-*/
 var cal;
 function initializeCal(){
     cal = new CalHeatMap();
@@ -58,7 +54,8 @@ $(window).on("orientationchange",
 
 // initialize the calendar heat map only after we login
 ons.ready(function() {
-  myNavigator.on('postpush', function(e) {
-    initializeCal();
-  });
+ myNavigator.on('postpush', function(e) {
+   initializeCal();
+   console.log("Test");
+ });
 });

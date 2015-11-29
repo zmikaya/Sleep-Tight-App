@@ -22,11 +22,13 @@
         <link rel="stylesheet" href="css/cal-heatmap.css">
         <script type="text/javascript" src="js/cal-heatmap.js"></script>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript" src="js/script.js"></script>
         
         <script>
             ons.bootstrap();
-            $.mobile.loadPage.defaults.showLoadMsg = false;
-$.mobile.changePage.defaults.showLoadMsg = false;
+            ons.ready(function() {
+                initializeScript();
+            });
         </script>
         
     </head>
@@ -34,21 +36,21 @@ $.mobile.changePage.defaults.showLoadMsg = false;
     <body>
         <!--User is presented with login screen and will then be transitioned to the main page-->
         <!--upon successful authorization, otherwise an error message will be returned-->
-        <ons-navigator title="Navigator" var="myNavigator" ons-postpush="initializeCal()">
+        <ons-navigator title="Navigator" var="myNavigator">
           <ons-page>
               <ons-toolbar>
                 <div class="center">Log In</div>
-                <div class="right"><ons-toolbar-button>Close</ons-toolbar-button></div>
+                <!--<div class="right"><ons-toolbar-button>Close</ons-toolbar-button></div>-->
               </ons-toolbar>
               
               <div class="login-form">
-                <input type="email" class="text-input--underbar" placeholder="Email" value="">
-                <input type="password" class="text-input--underbar" placeholder="Password" value="">
+                <input type="email" id="login_email" class="text-input--underbar" placeholder="Email" value="">
+                <input type="password" id="login_password" class="text-input--underbar" placeholder="Password" value="">
                 <br><br>
                 New to SleepTight?
                 <ons-button onclick="myNavigator.pushPage('register.html', { animation : 'slide' })">Register</ons-button>
                 <br><br>
-                <ons-button modifier="large" class="login-button" onclick="myNavigator.replacePage('main.html', { animation : 'slide' })">
+                <ons-button id="LoginBtn" modifier="large" class="login-button">
                     Log In
                 </ons-button>
                 <br><br>
@@ -58,8 +60,6 @@ $.mobile.changePage.defaults.showLoadMsg = false;
         </ons-navigator>
     </body>
     
-    <script type="text/javascript" src="js/heatmap.js"></script>
-    <script>
-        $("ui-loader").remove()
-    </script>
+    <!--<script type="text/javascript" src="js/heatmap.js"></script>-->
+    <!--<script type="text/javascript" src="js/script.js"></script>-->
 </html>
