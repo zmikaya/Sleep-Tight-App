@@ -10,22 +10,31 @@
         <link rel="stylesheet" href="css/style.css">
         <script>
         </script>
-        <!--End of Monaca Header-->
-        <!--Onsen and AngularJS-->
+        <!--Onsen Header-->
         <link rel="stylesheet" href="components/monaca-onsenui/css/onsenui.css"/>
         <link rel="stylesheet" href="components/monaca-onsenui/css/onsen-css-components.css"/>
-        <!--<script src="components/monaca-onsenui/js/angular/angular.js"></script>
-        <script src="components/monaca-onsenui/js/onsenui.js"></script>-->
-        <!--End of Onsen-->
-        <script type="text/javascript" src="components/monaca-jquery-mobile/jquery.mobile.js"></script>
+         <!--jQuery-->
+        <script src="components/monaca-jquery/jquery.js"></script>
+        <!--<script type="text/javascript" src="components/monaca-jquery-mobile/jquery.mobile.js"></script>
+        <link rel="stylesheet" href="components/monaca-jquery-mobile/css/jquery.mobile.css">-->
+        
         <script type="text/javascript" src="js/d3.min.js"></script>
         <link rel="stylesheet" href="css/cal-heatmap.css">
-        <script type="text/javascript" src="js/cal-heatmap.js"></script>
+        <script type="text/javascript" src="js/cal-heatmap.min.js"></script>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="js/script.js"></script>
         
         <script>
-            ons.bootstrap();
+            var Onsen = ons.bootstrap();
+            // module.controller('AppController', function($scope) {
+            //   ons.createPopover('popover.html').then(function(popover) {
+            //     $scope.popover = popover;
+            //   });
+            // 
+            //   $scope.show = function(e) {
+            //     $scope.popover.show(e);
+            //   };
+            // });
             ons.ready(function() {
                 initializeScript();
             });
@@ -33,6 +42,7 @@
         
     </head>
 
+    <!--<body ng-app="Onsen">-->
     <body>
         <!--User is presented with login screen and will then be transitioned to the main page-->
         <!--upon successful authorization, otherwise an error message will be returned-->
@@ -40,9 +50,7 @@
           <ons-page>
               <ons-toolbar>
                 <div class="center">Log In</div>
-                <!--<div class="right"><ons-toolbar-button>Close</ons-toolbar-button></div>-->
               </ons-toolbar>
-              
               <div class="login-form">
                 <input type="email" id="login_email" class="text-input--underbar" placeholder="Email" value="">
                 <input type="password" id="login_password" class="text-input--underbar" placeholder="Password" value="">
@@ -50,16 +58,33 @@
                 New to SleepTight?
                 <ons-button onclick="myNavigator.pushPage('register.html', { animation : 'slide' })">Register</ons-button>
                 <br><br>
-                <ons-button id="LoginBtn" modifier="large" class="login-button">
+                <ons-button modifier="large" class="login-button" ng-click="myNavigator.pushPage('main.html', { animation : 'slide' })">
                     Log In
                 </ons-button>
+                <!--<ons-button id="LoginBtn" modifier="large" class="login-button">
+                    Log In
+                </ons-button>-->
                 <br><br>
                 <ons-button modifier="quiet" class="forgot-password">Forgot password?</ons-button>
-              </div>
+                
+                <!--<div ng-controller="AppController" class="page">
+                  <div style="text-align: center">
+                    <br />
+                    <br />
+                    <ons-button id="button" ng-click="show('#button')">Click me!</ons-button>
+                  </div>
+                </div>-->
+            </div>
           </ons-page>
         </ons-navigator>
+        
+        <!--<ons-template id="popover.html">
+            <ons-popover direction="up down" cancelable>
+                <div style="text-align: center; opacity: 0.5;">
+                  <p>This is a popover!</p>
+                  <p><small>Click the background to remove the popover.</small></p>
+                </div>
+            </ons-popover>
+        </ons-template>-->
     </body>
-    
-    <!--<script type="text/javascript" src="js/heatmap.js"></script>-->
-    <!--<script type="text/javascript" src="js/script.js"></script>-->
 </html>

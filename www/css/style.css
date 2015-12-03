@@ -1,7 +1,7 @@
 /*****************************/
 /*            all            */
 /*****************************/
-.ui-loading .ui-loader
+.ui-loading .ui-loader .ui-icon-loading
 {
     display:none;
 }
@@ -50,8 +50,16 @@ input[type=email], input[type=password], input[type=text] {
 /*****************************/
 
 /**********Heat Map***********/
-#cal-heatmap {
+/*#cal-heatmap {
     margin-top: 30px;
+}*/
+
+.graph-label {
+    font-size: 25px !important;
+}
+
+.y_2015.m_12 .domain-background {
+    fill: white;
 }
 /********End Heat Map*********/
 
@@ -83,7 +91,7 @@ input[type=email], input[type=password], input[type=text] {
 
 /**************Misc***************/
 
-#logout-btn {
+#LogoutBtn {
     margin-top: 5%;
     margin-bottom: 5%
 }

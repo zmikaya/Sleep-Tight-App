@@ -5,14 +5,14 @@ This is the main app js file.
 ///// Called when app launch
 
 function initializeScript() {
-  $("#LoginBtn").click(onLoginBtn);
-  $("#RegisterBtn").click(onRegisterBtn);
-  $("#LogoutBtn").click(onLogoutBtn);
+  // $("#LoginBtn").click(onLoginBtn);
+  // $("#RegisterBtn").click(onRegisterBtn);
+  // $("#LogoutBtn").click(onLogoutBtn);
 }
 
 
 var currentMemoID;
-var MC = monaca.cloud;
+//var MC = monaca.cloud;
 
 function onRegisterBtn()
 {
@@ -75,42 +75,84 @@ The calendar heatmap is initialized with the desired settings.
 Calendar Heatmap Source: https://github.com/wa0x6e/cal-heatmap
 */
 
+/* Old Heatmap with rows of days */
+//var cal;
+//var patientData;
+//function initializeCal(locPatientData){
+//    patientData = locPatientData
+//    cal = new CalHeatMap();
+//    cal.init({
+//       data: "data/data.json",
+//        // data: locPatientData,
+//        // start: new Date(1990, 12),
+//        domain: "week",
+//        domainLabelFormat: "",
+//        range: 4,
+//        // colLimit: 14,
+//        // rowLimit: 1,
+//        cellSize: getCellSize(), // The cell size needs to be dynamically changed according to device, etc.
+//        verticalOrientation: true,
+//        // tooltip: true
+//        // legend: [0, 6, 11],
+//        legend: [1, 4, 6, 8, 11],
+//        legendCellPadding: 3,
+//        legendColors: {
+//            min: "#efefef",
+//    	    max: "#77DD77",
+//		    empty: "#ffcccc"
+//    		// Will use the CSS for the missing keys
+//    	},
+//        itemName: ["hour", "hours"],
+//        legendVerticalPosition: "top"
+//    });
+//}
+/* Old Heatmap with rows of days */
+
 var cal;
 var patientData;
-function initializeCal(patientData){
+function initializeCal(locPatientData){
+    patientData = locPatientData
     cal = new CalHeatMap();
     cal.init({
-//        data: "data/data.json",
-        data: patientData,
-        // start: new Date(1990, 12),
-        domain: "week",
-        domainLabelFormat: "",
-        range: 4,
-        // colLimit: 14,
-        // rowLimit: 1,
+       data: "data/data.json",
+        start: new Date(2015, 11),
+        domain: "month",
+        subDomain: "x_day",
+        range: 1,
+        cellRadius: 16,
+        cellPadding: 7,
         cellSize: getCellSize(), // The cell size needs to be dynamically changed according to device, etc.
         verticalOrientation: true,
-        // tooltip: true
-       // legend: [0, 2, 4, 6, 8, 10],
-        legend: [0, 6, 10],
+        domainLabelFormat: "%B %Y",
+        subDomainTextFormat: "%d",
+        label: {
+            position: "top",
+        },
+        legend: [1, 4, 6, 8, 11],
+        legendCellPadding: 3,
+        legendCellSize: getCellSize()*0.5,
         legendColors: {
-        //    min: "#efefef",
-    	//	max: "steelblue",
-            min: "#ff0000",
-        	max: "#00ff00",
-    		empty: "black"
+            min: "#efefef",
+            max: "#77DD77",
+		    empty: "#ffcccc"
     		// Will use the CSS for the missing keys
     	},
         itemName: ["hour", "hours"],
-        legendVerticalPosition: "top"
+        // legendVerticalPosition: "top"
     });
+    changeHeatMapStyle();
 }
 
-function getCellSize(){
+function getCellSize() {
     // This function returns the cellSize based on the screen width
     var windowWidth = window.innerWidth;
-    var cellSize = Math.floor((windowWidth-24)/14);
+    var cellSize = Math.floor((windowWidth-35)/7);
     return cellSize;
+}
+
+function changeHeatMapStyle() {
+    // adjusts subdomain text size dynamically
+    $(".subdomain-text").css("font-size", JSON.stringify(getCellSize()*0.25));
 }
 
 $(window).on("orientationchange",
@@ -122,7 +164,14 @@ $(window).on("orientationchange",
     function() {
         // destroy the old calendar element first
         cal.destroy();
-        getPatientData();
+        if (!patientData){
+            console.log('data does not exist');
+            getPatientData();
+    }
+        else {
+            console.log('data exists');
+            initializeCal(patientData);
+        }
     }
 )
 
@@ -162,7 +211,14 @@ initializeScript();
 ons.ready(function() {
   myNavigator.on('postpush', function(e) {
     initializeScript();
-    getPatientData();
+    if (!patientData){
+        // getPatientData();
+        initializeCal([1]);
+    }
+    else {
+        console.log('data exists');
+        initializeCal(patientData);
+    }
     console.log("test2")
   });
 });
