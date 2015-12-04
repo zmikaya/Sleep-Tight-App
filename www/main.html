@@ -3,7 +3,9 @@
         <ons-toolbar>
         </ons-toolbar>
         
-        <div id="cal-heatmap"></div>
+        <ons-gesture-detector>
+            <div id="cal-heatmap"></div>
+        </ons-gesture-detector>
         <!--General user info-->
         <div class="user-info">
             <p class="name"><b>Udo Sonin</b></p>
@@ -23,6 +25,7 @@
               
             </li>
         </ul>
+        <!--<ons-button id="LogoutBtn" modifier="large--cta" onclick="myNavigator.pushPage('index.html', { animation : 'slide' })">Logout</ons-button>-->
         <ons-button id="LogoutBtn" modifier="large--cta">Logout</ons-button>
     </div>
 </ons-page>

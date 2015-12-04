@@ -75,39 +75,6 @@ The calendar heatmap is initialized with the desired settings.
 Calendar Heatmap Source: https://github.com/wa0x6e/cal-heatmap
 */
 
-/* Old Heatmap with rows of days */
-//var cal;
-//var patientData;
-//function initializeCal(locPatientData){
-//    patientData = locPatientData
-//    cal = new CalHeatMap();
-//    cal.init({
-//       data: "data/data.json",
-//        // data: locPatientData,
-//        // start: new Date(1990, 12),
-//        domain: "week",
-//        domainLabelFormat: "",
-//        range: 4,
-//        // colLimit: 14,
-//        // rowLimit: 1,
-//        cellSize: getCellSize(), // The cell size needs to be dynamically changed according to device, etc.
-//        verticalOrientation: true,
-//        // tooltip: true
-//        // legend: [0, 6, 11],
-//        legend: [1, 4, 6, 8, 11],
-//        legendCellPadding: 3,
-//        legendColors: {
-//            min: "#efefef",
-//    	    max: "#77DD77",
-//		    empty: "#ffcccc"
-//    		// Will use the CSS for the missing keys
-//    	},
-//        itemName: ["hour", "hours"],
-//        legendVerticalPosition: "top"
-//    });
-//}
-/* Old Heatmap with rows of days */
-
 var cal;
 var patientData;
 function initializeCal(locPatientData){
@@ -122,7 +89,6 @@ function initializeCal(locPatientData){
         cellRadius: 16,
         cellPadding: 7,
         cellSize: getCellSize(), // The cell size needs to be dynamically changed according to device, etc.
-        verticalOrientation: true,
         domainLabelFormat: "%B %Y",
         subDomainTextFormat: "%d",
         label: {
@@ -131,6 +97,7 @@ function initializeCal(locPatientData){
         legend: [1, 4, 6, 8, 11],
         legendCellPadding: 3,
         legendCellSize: getCellSize()*0.5,
+        legendMargin: [60, 0, 0, 0],
         legendColors: {
             min: "#efefef",
             max: "#77DD77",
@@ -138,7 +105,7 @@ function initializeCal(locPatientData){
     		// Will use the CSS for the missing keys
     	},
         itemName: ["hour", "hours"],
-        // legendVerticalPosition: "top"
+        animationDuration: 1000,
     });
     changeHeatMapStyle();
 }
@@ -146,13 +113,15 @@ function initializeCal(locPatientData){
 function getCellSize() {
     // This function returns the cellSize based on the screen width
     var windowWidth = window.innerWidth;
-    var cellSize = Math.floor((windowWidth-35)/7);
+    // var cellSize = Math.floor((windowWidth-35)/7);
+    var cellSize = Math.floor((windowWidth-40)/7);
     return cellSize;
 }
 
 function changeHeatMapStyle() {
     // adjusts subdomain text size dynamically
     $(".subdomain-text").css("font-size", JSON.stringify(getCellSize()*0.25));
+    
 }
 
 $(window).on("orientationchange",
@@ -205,6 +174,33 @@ function getPatientData(){
 End of Data related function
 */
 
+/*
+Onsen features
+*/
+
+function gestureDection() {
+    // If right swipe, move calendar back one domain
+    $(document).on('swiperight', '#cal-heatmap', function() {
+        console.log('Swipe right is detected.');
+        cal.previous();
+        changeHeatMapStyle();
+      })
+    // If left swipe, move calendar forward one domain
+    $(document).on('swipeleft', '#cal-heatmap', function() {
+        console.log('Swipe left is detected.');
+        cal.next();
+        changeHeatMapStyle();
+      })
+      
+    $("#LogoutBtn").click(function() {
+        cal.previous();
+    })
+}
+
+/*
+End Onsen features
+*/
+
 
 // initialize the script after each page change
 initializeScript();
@@ -216,10 +212,9 @@ ons.ready(function() {
         initializeCal([1]);
     }
     else {
-        console.log('data exists');
-        initializeCal(patientData);
+        initializeCal([1]);
     }
-    console.log("test2")
+    gestureDection();
   });
 });
 

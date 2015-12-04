@@ -58,8 +58,8 @@ input[type=email], input[type=password], input[type=text] {
     font-size: 25px !important;
 }
 
-.y_2015.m_12 .domain-background {
-    fill: white;
+#cal-heatmap {
+    background-color: white;
 }
 /********End Heat Map*********/
 
