@@ -124,25 +124,25 @@ function changeHeatMapStyle() {
     
 }
 
-$(window).on("orientationchange",
-    // If the orientation of the display changes,
-    // the sizing of the calendar heat map is changed.
-    // This may be better achieved without reinitializing
-    // the entire heat map by inerfacing with the library
-    // or changing html elements directly
-    function() {
-        // destroy the old calendar element first
-        cal.destroy();
-        if (!patientData){
-            console.log('data does not exist');
-            getPatientData();
-    }
-        else {
-            console.log('data exists');
-            initializeCal(patientData);
-        }
-    }
-)
+// $(window).on("orientationchange",
+//     // If the orientation of the display changes,
+//     // the sizing of the calendar heat map is changed.
+//     // This may be better achieved without reinitializing
+//     // the entire heat map by inerfacing with the library
+//     // or changing html elements directly
+//     function() {
+//         // destroy the old calendar element first
+//         cal.destroy();
+//         if (!patientData){
+//             console.log('data does not exist');
+//             getPatientData();
+//     }
+//         else {
+//             console.log('data exists');
+//             initializeCal(patientData);
+//         }
+//     }
+// )
 
 /*
 End of Calendar Heat Map
@@ -177,24 +177,55 @@ End of Data related function
 /*
 Onsen features
 */
-
+var hammertime = null;
 function gestureDection() {
     // If right swipe, move calendar back one domain
-    $(document).on('swiperight', '#cal-heatmap', function() {
+    // $(document).on('swiperight', '#cal-heatmap', function() {
+    //     console.log('Swipe right is detected.');
+    //     cal.previous();
+    //     changeHeatMapStyle();
+    //   })
+    // // If left swipe, move calendar forward one domain
+    // $(document).on('swipeleft', '#cal-heatmap', function() {
+    //     console.log('Swipe left is detected.');
+    //     cal.next();
+    //     changeHeatMapStyle();
+    //   })
+    //   
+    // $("#LogoutBtn").click(function() {
+    //     cal.previous();
+    // })
+    
+    var myElement = document.getElementById("cal-heatmap");
+    var mc = new Hammer.Manager(myElement, {
+        recognizers: [
+            [Hammer.Swipe, { threshold: 3, velocity: 0.3}]    
+        ]
+    });
+    mc.on("swiperight", function() {
         console.log('Swipe right is detected.');
         cal.previous();
-        changeHeatMapStyle();
-      })
-    // If left swipe, move calendar forward one domain
-    $(document).on('swipeleft', '#cal-heatmap', function() {
+    })
+    mc.on("swipeleft", function() {
         console.log('Swipe left is detected.');
         cal.next();
-        changeHeatMapStyle();
-      })
-      
-    $("#LogoutBtn").click(function() {
-        cal.previous();
     })
+    mc.on("swipe drag", function(event) {
+        if (event.gesture.direction == Hammer.DIRECTION_UP || event.gesture.direction == Hammer.DIRECTION_DOWN) {
+            event.gesture.preventDefault();
+        }
+    })
+    
+    // hammertime = new Hammer(myElement);
+    // // console.log(hammertime)
+    // hammertime.on("swiperight", function() {
+    //     console.log('Swipe right is detected.');
+    //     cal.previous();
+    // })
+    // hammertime.on("swipeleft", function() {
+    //     console.log('Swipe left is detected.');
+    //     cal.next();
+    // })
 }
 
 /*
@@ -215,6 +246,16 @@ ons.ready(function() {
         initializeCal([1]);
     }
     gestureDection();
+    var slider = document.getElementById('slider');
+
+noUiSlider.create(slider, {
+    start: [20, 80],
+    connect: true,
+    range: {
+		'min': 0,
+		'max': 100
+	}
+});
   });
 });
 

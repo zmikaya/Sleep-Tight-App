@@ -17,7 +17,7 @@ function initializeCal(){
         cellSize: getCellSize(), // The cell size needs to be dynamically changed according to device, etc.
         verticalOrientation: true,
         // tooltip: true
-       // legend: [0, 2, 4, 6, 8, 10],
+        //legend: [0, 2, 4, 6, 8, 10],
         legend: [0, 6, 10],
         legendColors: {
         //	min: "#efefef",

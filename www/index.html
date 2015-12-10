@@ -13,6 +13,13 @@
         <!--Onsen Header-->
         <link rel="stylesheet" href="components/monaca-onsenui/css/onsenui.css"/>
         <link rel="stylesheet" href="components/monaca-onsenui/css/onsen-css-components.css"/>
+        <!--HammerJS-->
+        <script src="js/hammer.min.js"></script>
+        <!--noUiSlide-->
+        <link rel="stylesheet" href="components/noUiSlider/nouislider.min.css">
+        <link rel="stylesheet" href="components/noUiSlider/nouislider.pips.css">
+        <link rel="stylesheet" href="components/noUiSlider/nouislider.tooltips.css">
+        <script src="components/noUiSlider/nouislider.min.js"></script>
          <!--jQuery-->
         <script src="components/monaca-jquery/jquery.js"></script>
         <!--<script type="text/javascript" src="components/monaca-jquery-mobile/jquery.mobile.js"></script>
@@ -67,6 +74,7 @@
                 <br><br>
                 <ons-button modifier="quiet" class="forgot-password">Forgot password?</ons-button>
                 
+                <div id="slider"></div>
                 <!--<div ng-controller="AppController" class="page">
                   <div style="text-align: center">
                     <br />
@@ -87,4 +95,16 @@
             </ons-popover>
         </ons-template>-->
     </body>
+    <script>
+        var slider = document.getElementById('slider');
+
+noUiSlider.create(slider, {
+    start: [20, 80],
+	connect: true,
+	range: {
+		'min': 0,
+		'max': 100
+	}
+});
+    </script>
 </html>
